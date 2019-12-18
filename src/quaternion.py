@@ -1,6 +1,6 @@
 import numpy as np
 
-def as_4Dmatrix(ql,qr):
+def get4Dmatrix(ql,qr):
     # converts left and right quaternions into a single rotation matrix
     matL = np.array([[ql[0],-ql[1],-ql[2],-ql[3]],
                      [ql[1],ql[0],-ql[3],ql[2]],
@@ -33,4 +33,4 @@ def norm(q):
 
 def normalize(q):
     normq=norm(q)
-    return [q[0]/normq,q[1]/normq,q[2]/normq,q[3]/norm[q]]
+    return [q[0]/normq,q[1]/normq,q[2]/normq,q[3]/normq]
