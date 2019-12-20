@@ -1,5 +1,6 @@
 import numpy as np
 import quat
+import rot
 import lyap
 from numpy.linalg import inv
 
@@ -10,7 +11,7 @@ def getKE(ql,qr,L,J0):
 def solveOmega(ql,qr,L,J0):
     # This function solves the lyapunov equation L=-J*Omega-Omega*J
     # by expanding out the equation into the form l=A*w
-    R = quat.get4Dmatrix(ql,qr)
+    R = rot.as_matrix(ql,qr)
     J = R.dot(J0).dot(R.T)
     return lyap.solve(L,J)
 

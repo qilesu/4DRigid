@@ -1,17 +1,9 @@
 #!/usr/bin/env python3
 import numpy as np
-
-def get4Dmatrix(ql,qr):
-    # converts left and right quaternions into a single rotation matrix
-    matL = np.array([[ql[0],-ql[1],-ql[2],-ql[3]],
-                     [ql[1],ql[0],-ql[3],ql[2]],
-                     [ql[2],ql[3],ql[0],-ql[1]],
-                     [ql[3],-ql[2],ql[1],ql[0]]])
-    matR = np.array([[qr[0],-qr[1],-qr[2],-qr[3]],
-                     [qr[1],qr[0],qr[3],-qr[2]],
-                     [qr[2],-qr[3],qr[0],qr[1]],
-                     [qr[3],qr[2],-qr[1],qr[0]]])
-    return matL.dot(matR)
+'''
+All of the below methods returns a list. While the arguments passed can be
+tuples or numpy arrays, it's better to stick with lists
+'''
 
 def mult(q1, q2):
     w1,x1,y1,z1 = q1
