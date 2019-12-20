@@ -17,18 +17,9 @@ def solveOmega(ql,qr,L,J0):
 
 def step(ql,qr,L,J0,dt):
     Omega=solveOmega(ql,qr,L,J0)
-
-    # find the infinitesimal quaternions dql and dqr
-    dql=[0,
-         0.5*dt*(Omega[1,0]+Omega[3,2]),
-         0.5*dt*(Omega[2,0]+Omega[1,3]),
-         0.5*dt*(Omega[3,0]+Omega[2,1])]
-    dqr=[0,
-         0.5*dt*(Omega[1,0]-Omega[3,2]),
-         0.5*dt*(Omega[2,0]-Omega[1,3]),
-         0.5*dt*(Omega[3,0]-Omega[2,1])]
-
-    ql = quat.normalize(quat.mult(quat.exp(dql),ql))
-    qr = quat.normalize(quat.mult(qr,quat.exp(dqr)))
+    ql,qr=rot.rotate_quat(ql,qr,dt*Omega)
+    
+    ql = quat.normalize(ql)
+    qr = quat.normalize(qr)
     
     return ql,qr

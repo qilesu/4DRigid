@@ -2,8 +2,13 @@
 import numpy as np
 import quat
 
+'''
+This class should not depend on whether quaternions are implemented with lists
+tuples or numpy arrays.
+'''
+
 def as_matrix(ql,qr):
-    '''converts left and right quaternions into a single rotation matrix''' 
+    '''converts left and right quaternions into a single rotation matrix'''
     matL = np.array([[ql[0],-ql[1],-ql[2],-ql[3]],
                      [ql[1],ql[0],-ql[3],ql[2]],
                      [ql[2],ql[3],ql[0],-ql[1]],
@@ -14,7 +19,7 @@ def as_matrix(ql,qr):
                      [qr[3],qr[2],-qr[1],qr[0]]])
     return matL.dot(matR)
 
-def rotate(ql,qr,theta,order='before'):
+def rotate_quat(ql,qr,theta,order='before'):
     '''
     rotate ql and qr according to the infinitesimal rotation represented by
     the skew symmetric matrix theta. Equivalent to multiplication by the matrix
@@ -25,12 +30,12 @@ def rotate(ql,qr,theta,order='before'):
     '''
     ql_incr,qr_incr=as_quat_exp(theta)
     if order=='before':
-        ql=quat.mult(ql,ql_inc)
-        qr=quat.mult(qr_inc,qr)
+        ql=quat.mult(ql,ql_incr)
+        qr=quat.mult(qr_incr,qr)
         return ql,qr
     elif order=='after':
-        ql=quat.mult(ql_inc,ql)
-        qr=quat.mult(qr,qr_inc)
+        ql=quat.mult(ql_incr,ql)
+        qr=quat.mult(qr,qr_incr)
         return ql,qr
 
 def as_quat_exp(mat):
