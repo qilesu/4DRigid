@@ -17,7 +17,8 @@ def solveOmega(ql,qr,L,J0):
 
 def step(ql,qr,L,J0,dt):
     Omega=solveOmega(ql,qr,L,J0)
-    ql,qr=rot.rotate_quat(ql,qr,dt*Omega)
+    #ql,qr=rot.rotate_quat(ql,qr,dt*Omega,'after')
+    ql,qr=rot.rotate_quat(ql,qr,dt*Omega,'world')
     
     ql = quat.normalize(ql)
     qr = quat.normalize(qr)
